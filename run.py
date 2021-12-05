@@ -1,6 +1,7 @@
 """
     first work on python
 """
+# from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -24,14 +25,14 @@ def get_sales_data():
     by commas. The loop will repeatedly request data, until it is valid.
     """
     print("Please enter sales data from the last market.")
-    print("Data should be six numbers, coma separated\n")
+    print("Data should be six numbers, coma separated.\n")
 
     while True:
         data_str = input("Enter data here: ")
 
         sales_data_splited = data_str.split((','))
         if validate_data(sales_data_splited):
-            print("Data is valid")
+            print("Data is valid.")
             break
 
     return sales_data_splited
@@ -66,6 +67,28 @@ def update_sales_worksheet(data):
     print("Sales worksheet updated successfully.\n")
 
 
-data = get_sales_data()
-sales_data = [int(num) for num in data]
-update_sales_worksheet(sales_data)
+def calculate_surplus_data(sales_row):
+    """
+    Compare sales with stock and calculate the surplus for each item type.
+
+    The surplus is defined as the sales figure sutracted from the stock:
+    - Positive surplus indicates waste.
+    - Negative surplus indicates extra made when stock was sold out.
+    """
+    print("Calculating surplus data...\n")
+    stock = SHEET.worksheet('stock').get_all_values()
+    stock_row = stock[-1]
+
+
+def main():
+    """
+    Run all program functions
+    """
+    data = get_sales_data()
+    sales_data = [int(num) for num in data]
+    update_sales_worksheet(sales_data)
+    calculate_surplus_data(sales_data)
+
+
+print("Welcome to Love Sandwiches Data Automation.\n")
+main()
