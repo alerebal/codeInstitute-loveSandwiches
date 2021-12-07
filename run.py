@@ -1,7 +1,6 @@
 """
     first work on python
 """
-from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -28,7 +27,7 @@ def get_sales_data():
     print("Data should be six numbers, coma separated.\n")
 
     while True:
-        data_str = input("Enter data here: ")
+        data_str = input("Enter data here: \n")
 
         sales_data_splited = data_str.split((','))
         if validate_data(sales_data_splited):
